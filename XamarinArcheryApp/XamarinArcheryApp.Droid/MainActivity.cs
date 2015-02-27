@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Xamarin.Forms;
@@ -14,6 +15,11 @@ namespace XamarinArcheryApp.Droid
       base.OnCreate(bundle);
 
       Forms.Init(this, bundle);
+
+      //Hackish way of inspecting the VM Exceptions during debug
+      AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+      {
+      };
 
       LoadApplication(new App());
     }
