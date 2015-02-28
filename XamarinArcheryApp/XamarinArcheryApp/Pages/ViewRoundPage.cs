@@ -48,6 +48,7 @@ namespace XamarinArcheryApp.Pages
         this.Navigation.PopAsync();
       };
 
+      
 
       Content = new StackLayout
       {
@@ -75,6 +76,9 @@ namespace XamarinArcheryApp.Pages
     {
       //Possibly misguided attempts to clear memory. Still need to learn more about this.
       base.OnDisappearing();
+
+      targetImage = null;
+
       Content = null;
       GC.Collect();
     }

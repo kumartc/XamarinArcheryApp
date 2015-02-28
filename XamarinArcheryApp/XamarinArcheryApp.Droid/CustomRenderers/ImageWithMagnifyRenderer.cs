@@ -1,4 +1,5 @@
-﻿using Android.Graphics;
+﻿using System;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Java.Lang;
@@ -6,6 +7,7 @@ using XamarinArcheryApp.CustomObjects;
 using XamarinArcheryApp.Droid.CustomRenderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Math = Java.Lang.Math;
 
 [assembly: ExportRenderer(typeof(ImageWithMagnify), typeof(ImageWithMagnifyRenderer))]
 
@@ -160,9 +162,107 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
 
     //  return inSampleSize;
     //}
+
+
+    //Thanks to Avrohom for help - Force Dispose of Image
+    Page _page;
+    NavigationPage _navigPage;
+
+    protected override void OnElementChanged(ElementChangedEventArgs<Image> e)
+    {
+      base.OnElementChanged(e);
+      if (e.OldElement == null)
+      {
+        if (GetContainingView(e.NewElement) != null)
+        {
+          _page = GetContainingPage(e.NewElement);
+          if (_page.Parent is TabbedPage)
+          {
+            _page.Disappearing += PageContainedInTabbedPageDisapearing;
+            return;
+          }
+
+          _navigPage = GetContainingNavigationPage(_page);
+          if (_navigPage != null)
+            _navigPage.Popped += OnPagePopped;
+        }
+        else if ((_page = GetContainingTabbedPage(e.NewElement)) != null)
+        {
+          _page.Disappearing += PageContainedInTabbedPageDisapearing;
+        }
+      }
+    }
+
+    void PageContainedInTabbedPageDisapearing(object sender, EventArgs e)
+    {
+      this.Dispose(true);
+      _page.Disappearing -= PageContainedInTabbedPageDisapearing;
+    }
+
+    private void OnPagePopped(object s, NavigationEventArgs e)
+    {
+      if (e.Page == _page)
+      {
+        this.Dispose(true);
+        _navigPage.Popped -= OnPagePopped;
+      }
+    }
+
+    private Page GetContainingPage(Xamarin.Forms.Element element)
+    {
+      Element parentElement = element.ParentView;
+
+      if (parentElement is Page)
+        return (Page)parentElement;
+      else
+        return GetContainingPage(parentElement);
+    }
+
+    private Xamarin.Forms.View GetContainingView(Xamarin.Forms.Element element)
+    {
+      Element parentElement = element.Parent;
+
+      if (parentElement == null)
+        return null;
+
+      if (parentElement is Xamarin.Forms.View)
+        return (Xamarin.Forms.View)parentElement;
+      else
+        return GetContainingView(parentElement);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+      base.Dispose(disposing);
+    }
+
+    private TabbedPage GetContainingTabbedPage(Xamarin.Forms.Element element)
+    {
+      Element parentElement = element.Parent;
+
+      if (parentElement == null)
+        return null;
+
+      if (parentElement is TabbedPage)
+        return (TabbedPage)parentElement;
+      else
+        return GetContainingTabbedPage(parentElement);
+    }
+
+    private NavigationPage GetContainingNavigationPage(Xamarin.Forms.Element element)
+    {
+      Element parentElement = element.Parent;
+
+      if (parentElement == null)
+        return null;
+
+      if (parentElement is NavigationPage)
+        return (NavigationPage)parentElement;
+      else
+        return GetContainingNavigationPage(parentElement);
+    }
+
+
+
   }
-
-
-  
-
 }

@@ -11,8 +11,7 @@ namespace XamarinArcheryApp.CustomObjects
       {
         HorizontalOptions = LayoutOptions.Start,
         Text = "Round Name",
-        FontSize = Font.SystemFontOfSize(NamedSize.Large).FontSize,
-        Font = Font.SystemFontOfSize(NamedSize.Large)
+        FontSize = Font.SystemFontOfSize(NamedSize.Large).FontSize
       };
 
       roundName.SetBinding(Label.TextProperty, new Binding("Name"));
@@ -22,8 +21,7 @@ namespace XamarinArcheryApp.CustomObjects
         HorizontalOptions = LayoutOptions.EndAndExpand,
         XAlign = TextAlignment.End,
         Text = "Round DateTime",
-        FontSize = Font.SystemFontOfSize(NamedSize.Small).FontSize,
-        Font = Font.SystemFontOfSize(NamedSize.Small)
+        FontSize = Font.SystemFontOfSize(NamedSize.Small).FontSize
       };
 
       roundDateTime.SetBinding(Label.TextProperty, new Binding("DateTime", BindingMode.OneWay, converter: new DateTimeToStringValueConverter()));
