@@ -67,21 +67,17 @@ namespace XamarinArcheryApp.Pages
               deleteButton, saveButton
             }
           }
-          
         }
       };
     }
 
     protected override void OnDisappearing()
     {
-      //Possibly misguided attempts to clear memory. Still need to learn more about this.
-      base.OnDisappearing();
-
+      //Not sure what else I can do to force the GC when the page dissapears. 
+      //TODO: Verify this approach is valid for Memory Management (I am 95% sure it isn't)
       targetImage = null;
-
-      Content = null;
+      base.OnDisappearing();
       GC.Collect();
     }
-
-   }
+  }
 }

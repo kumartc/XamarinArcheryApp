@@ -1,19 +1,19 @@
-﻿using System;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Java.Lang;
-using XamarinArcheryApp.CustomObjects;
-using XamarinArcheryApp.Droid.CustomRenderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Math = Java.Lang.Math;
+using XamarinArcheryApp.CustomObjects;
+using XamarinArcheryApp.Droid.CustomRenderers;
+using Color = Android.Graphics.Color;
+using Math = System.Math;
 
 [assembly: ExportRenderer(typeof(ImageWithMagnify), typeof(ImageWithMagnifyRenderer))]
 
 namespace XamarinArcheryApp.Droid.CustomRenderers
 {
-  public class ImageWithMagnifyRenderer : ImageRenderer
+  public class ImageWithMagnifyRenderer : ImageDisposalRenderer
   {
     //Amount of finger movement allowed in a single long press
     private const float SCROLL_THRESHOLD = 100F;
@@ -30,8 +30,8 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
     public ImageWithMagnifyRenderer()
     {
       //Enable drawing cache since we're using it to pull magnification bitmap
-      DrawingCacheEnabled = true;
-      
+      this.DrawingCacheEnabled = true;
+
       _handler = new Handler();
       _onLongPressRunnable = new Runnable(() =>
       {
@@ -41,10 +41,21 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
       });
     }
 
+    protected override void OnElementChanged(ElementChangedEventArgs<Image> e)
+    {
+      base.OnElementChanged(e);
+
+      //On First Load
+      if (e.OldElement == null)
+      {
+        //
+      }
+    }
+
     protected override void DispatchDraw(Canvas canvas)
     {
       base.DispatchDraw(canvas);
-
+      
       //If zooming is enabled, draw the magnification frame
       if (_isZooming)
       {
@@ -66,7 +77,7 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
 
         var borderPaint = new Paint();
         borderPaint.SetStyle(Paint.Style.Stroke);
-        borderPaint.Color = Android.Graphics.Color.Black;
+        borderPaint.Color = Color.Black;
         borderPaint.StrokeWidth = 3.0F;
 
         //Draw magnified picture
@@ -75,6 +86,8 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
         canvas.DrawRect(boxLeft, boxTop, boxRight, boxBottom, borderPaint);
         //Draw indicator in center
         canvas.DrawCircle(boxLeft + (boxWidth / 2.0F), boxTop + (boxHeight / 2.0F), 4.0F, borderPaint);
+
+        borderPaint.Dispose();
       }
     }
 
@@ -82,13 +95,12 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
     {
       //Set up Magnification Shader/Paint
       //I don't think this is an ideal implementation
-      //The references are too strong and are not being removed during GC
       //Had to implement here because the drawing cache wasn't available in the constructor.
-      //TODO: Implement Paint/Shader properly as to allow GC
       //TODO: Check to see if there is a better override for the Paint/Shader initialization
       if (_mPaint == null)
       {
         //TODO: Error handling if the cache/bitmap can't be processed
+        //TODO: Verify that this is the best way to access the image bitmap
         _mShader = new BitmapShader(this.GetDrawingCache(true), Shader.TileMode.Clamp, Shader.TileMode.Clamp);
         _mPaint = new Paint();
         _mPaint.SetShader(_mShader);
@@ -133,136 +145,21 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
       return base.OnTouchEvent(e);
     }
 
-    ///// <summary>
-    ///// Determines the proper sample size to scale the picture to the view
-    ///// </summary>
-    ///// <param name="originalHeight"></param>
-    ///// <param name="originalWidth"></param>
-    ///// <param name="reqHeight"></param>
-    ///// <param name="reqWidth"></param>
-    ///// <returns></returns>
-    //public static int CalculateSampleSize(int originalHeight, int originalWidth, int reqHeight, int reqWidth)
-    //{
-    //  //Set default sample size result
-    //  int inSampleSize = 1;
-
-    //  //If the image is larger than the requested size, we'll need to calculate the scale. 
-    //  if (originalHeight > reqHeight || originalWidth > reqWidth)
-    //  {
-    //    int halfHeight = originalHeight / 2;
-    //    int halfWidth = originalWidth / 2;
-
-    //    // Calculate the largest sample size value that is a power of 2 and keeps both
-    //    // height and width larger than the requested height and width.
-    //    while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth)
-    //    {
-    //      inSampleSize *= 2;
-    //    }
-    //  }
-
-    //  return inSampleSize;
-    //}
-
-
-    //Thanks to Avrohom for help - Force Dispose of Image
-    Page _page;
-    NavigationPage _navigPage;
-
-    protected override void OnElementChanged(ElementChangedEventArgs<Image> e)
-    {
-      base.OnElementChanged(e);
-      if (e.OldElement == null)
-      {
-        if (GetContainingView(e.NewElement) != null)
-        {
-          _page = GetContainingPage(e.NewElement);
-          if (_page.Parent is TabbedPage)
-          {
-            _page.Disappearing += PageContainedInTabbedPageDisapearing;
-            return;
-          }
-
-          _navigPage = GetContainingNavigationPage(_page);
-          if (_navigPage != null)
-            _navigPage.Popped += OnPagePopped;
-        }
-        else if ((_page = GetContainingTabbedPage(e.NewElement)) != null)
-        {
-          _page.Disappearing += PageContainedInTabbedPageDisapearing;
-        }
-      }
-    }
-
-    void PageContainedInTabbedPageDisapearing(object sender, EventArgs e)
-    {
-      this.Dispose(true);
-      _page.Disappearing -= PageContainedInTabbedPageDisapearing;
-    }
-
-    private void OnPagePopped(object s, NavigationEventArgs e)
-    {
-      if (e.Page == _page)
-      {
-        this.Dispose(true);
-        _navigPage.Popped -= OnPagePopped;
-      }
-    }
-
-    private Page GetContainingPage(Xamarin.Forms.Element element)
-    {
-      Element parentElement = element.ParentView;
-
-      if (parentElement is Page)
-        return (Page)parentElement;
-      else
-        return GetContainingPage(parentElement);
-    }
-
-    private Xamarin.Forms.View GetContainingView(Xamarin.Forms.Element element)
-    {
-      Element parentElement = element.Parent;
-
-      if (parentElement == null)
-        return null;
-
-      if (parentElement is Xamarin.Forms.View)
-        return (Xamarin.Forms.View)parentElement;
-      else
-        return GetContainingView(parentElement);
-    }
-
     protected override void Dispose(bool disposing)
     {
+      if (disposing)
+      {
+        if(_mShader != null)
+          _mShader.Dispose();
+        if (_mPaint != null)
+        _mPaint.Dispose();
+        if (_handler != null)
+        _handler.Dispose();
+        if (_onLongPressRunnable != null)
+        _onLongPressRunnable.Dispose();
+      }
+
       base.Dispose(disposing);
     }
-
-    private TabbedPage GetContainingTabbedPage(Xamarin.Forms.Element element)
-    {
-      Element parentElement = element.Parent;
-
-      if (parentElement == null)
-        return null;
-
-      if (parentElement is TabbedPage)
-        return (TabbedPage)parentElement;
-      else
-        return GetContainingTabbedPage(parentElement);
-    }
-
-    private NavigationPage GetContainingNavigationPage(Xamarin.Forms.Element element)
-    {
-      Element parentElement = element.Parent;
-
-      if (parentElement == null)
-        return null;
-
-      if (parentElement is NavigationPage)
-        return (NavigationPage)parentElement;
-      else
-        return GetContainingNavigationPage(parentElement);
-    }
-
-
-
   }
 }

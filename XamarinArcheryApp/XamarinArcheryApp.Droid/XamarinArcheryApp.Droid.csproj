@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderers\ImageDisposalRenderer.cs" />
     <Compile Include="CustomRenderers\ImageWithMagnifyRenderer.cs" />
     <Compile Include="DataAccess\SQLiteDroid.cs" />
     <Compile Include="MainActivity.cs" />

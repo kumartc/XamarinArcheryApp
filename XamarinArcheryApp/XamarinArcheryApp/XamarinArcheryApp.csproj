@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="CustomObjects\ImageWithDispose.cs" />
     <Compile Include="CustomObjects\ImageWithMagnify.cs" />
     <Compile Include="CustomObjects\RoundViewCell.cs" />
     <Compile Include="Data\ArcheryDatabase.cs" />

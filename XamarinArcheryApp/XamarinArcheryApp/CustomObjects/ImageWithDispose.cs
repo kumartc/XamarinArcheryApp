@@ -2,7 +2,7 @@
 
 namespace XamarinArcheryApp.CustomObjects
 {
-  public class ImageWithMagnify : Image
+  public class ImageWithDispose : Image
   {
   }
 }
