@@ -2,6 +2,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using SVG.Forms.Plugin.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -15,6 +16,7 @@ namespace XamarinArcheryApp.Droid
       base.OnCreate(bundle);
 
       Forms.Init(this, bundle);
+      SvgImageRenderer.Init();
 
       //Hackish way of inspecting the VM Exceptions during debug
       AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
@@ -22,6 +24,11 @@ namespace XamarinArcheryApp.Droid
       };
 
       LoadApplication(new App());
+
+      //Save Screen Dimensions
+      App.ScreenDimensions = new Size(
+            Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density,
+            Resources.DisplayMetrics.HeightPixels / Resources.DisplayMetrics.Density);
     }
   }
 }

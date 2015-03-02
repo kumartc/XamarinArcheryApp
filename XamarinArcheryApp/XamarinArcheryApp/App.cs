@@ -8,6 +8,8 @@ namespace XamarinArcheryApp
   {
     private static ArcheryDatabase _database;
 
+    public static Size ScreenDimensions;
+
     public App()
     {
       MainPage = new NavigationPage(new StartPage());

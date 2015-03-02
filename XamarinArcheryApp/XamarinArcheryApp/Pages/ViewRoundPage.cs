@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using SVG.Forms.Plugin.Abstractions;
 using Xamarin.Forms;
 using XamarinArcheryApp.CustomObjects;
 using XamarinArcheryApp.Model;
@@ -7,7 +9,8 @@ namespace XamarinArcheryApp.Pages
 {
   class ViewRoundPage : ContentPage
   {
-    private ImageWithMagnify targetImage;
+    private SvgImageWithMagnify targetImage;
+    //private SvgImage targetImage;
 
     public ViewRoundPage()
     {
@@ -18,10 +21,15 @@ namespace XamarinArcheryApp.Pages
       var nameEntry = new Entry();
       nameEntry.SetBinding(Entry.TextProperty, "Name");
 
-      targetImage = new ImageWithMagnify
+      targetImage = new SvgImageWithMagnify
       {
-        Source = "Vegas3SpotTarget",
-        Aspect = Aspect.AspectFit,
+        SvgPath = "XamarinArcheryApp.Images.VegasTargetSvg.svg",
+        SvgAssembly = typeof(App).GetTypeInfo().Assembly,
+        HeightRequest = App.ScreenDimensions.Width,
+        WidthRequest = App.ScreenDimensions.Width,
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.Center,
+        BackgroundColor = Color.White
       };
 
       var deleteButton = new Button
@@ -73,10 +81,10 @@ namespace XamarinArcheryApp.Pages
 
     protected override void OnDisappearing()
     {
-      //Not sure what else I can do to force the GC when the page dissapears. 
-      //TODO: Verify this approach is valid for Memory Management (I am 95% sure it isn't)
       targetImage = null;
       base.OnDisappearing();
+
+      //This shouldn't be necessary with the svg changes (or at all), but keeping in for now as I continue to optimize
       GC.Collect();
     }
   }
