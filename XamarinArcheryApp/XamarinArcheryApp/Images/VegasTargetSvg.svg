@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   width="87.5cm"
+   height="87.5cm"
+   viewBox="0 0 87.5 87.5"
+   id="VegasTarget">
+
+  <!--Background Color (Might Remove)-->
+  <rect width="87.5" height="87.5" fill="#bdbdbd" id="Background"/>
+
+  <!--Target 1-->
+  <circle cx="43.75" cy="24" r="19.9" fill="#41b7c8" stroke="black" stroke-width="0.1" id="Target1Zone6" />
+  <circle cx="43.75" cy="24" r="15.9" fill="#fd1b14" stroke="black" stroke-width="0.1" id="Target1Zone7" />
+  <circle cx="43.75" cy="24" r="11.9" fill="#fd1b14" stroke="black" stroke-width="0.1" id="Target1Zone8" />
+  <circle cx="43.75" cy="24" r="7.9" fill="#fff535" stroke="black" stroke-width="0.1" id="Target1Zone9" />
+  <circle cx="43.75" cy="24" r="3.9" fill="#fff535" stroke="black" stroke-width="0.1" id="Target1Zone10" />
+  <circle cx="43.75" cy="24" r="1.9" fill="#fff535" stroke="black" stroke-width="0.07" id="Target1Zone10X" />
+  <path d="M 42.75 24 L 44.75 24 M 43.75 23 L 43.75 25" stroke="black" stroke-width="0.3" transform="rotate(-45 43.75 24)" id="Taget1Center" />
+
+  <!--Target 2-->
+  <circle cx="22.5" cy="61" r="19.9" fill="#41b7c8" stroke="black" stroke-width="0.1" id="Target2Zone6" />
+  <circle cx="22.5" cy="61" r="15.9" fill="#fd1b14" stroke="black" stroke-width="0.1" id="Target2Zone7" />
+  <circle cx="22.5" cy="61" r="11.9" fill="#fd1b14" stroke="black" stroke-width="0.1" id="Target2Zone8" />
+  <circle cx="22.5" cy="61" r="7.9" fill="#fff535" stroke="black" stroke-width="0.1" id="Target2Zone9" />
+  <circle cx="22.5" cy="61" r="3.9" fill="#fff535" stroke="black" stroke-width="0.1" id="Target2Zone10" />
+  <circle cx="22.5" cy="61" r="1.9" fill="#fff535" stroke="black" stroke-width="0.07" id="Target2Zone10X" />
+  <path d="M 21.5 61 L 23.5 61 M 22.5 60 L 22.5 62" stroke="black" stroke-width="0.3" transform="rotate(-45 22.5 61)" id="Taget2Center" />
+
+  <!--Target 3-->
+  <circle cx="65" cy="61" r="19.9" fill="#41b7c8" stroke="black" stroke-width="0.1" id="Target3Zone6" />
+  <circle cx="65" cy="61" r="15.9" fill="#fd1b14" stroke="black" stroke-width="0.1" id="Target3Zone7" />
+  <circle cx="65" cy="61" r="11.9" fill="#fd1b14" stroke="black" stroke-width="0.1" id="Target3Zone8" />
+  <circle cx="65" cy="61" r="7.9" fill="#fff535" stroke="black" stroke-width="0.1" id="Target3Zone9" />
+  <circle cx="65" cy="61" r="3.9" fill="#fff535" stroke="black" stroke-width="0.1" id="Target3Zone10" />
+  <circle cx="65" cy="61" r="1.9" fill="#fff535" stroke="black" stroke-width="0.07" id="Target3Zone10X" />
+  <path d="M 64 61 L 66 61 M 65 60 L 65 62" stroke="black" stroke-width="0.3" transform="rotate(-45 65 61)" id="Taget3Center" /> 
+</svg>
