@@ -7,7 +7,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace XamarinArcheryApp.Droid
 {
-  [Activity(Label = "XamarinArcheryApp", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+  [Activity(Label = "XamarinArcheryApp", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
   public class MainActivity : FormsApplicationActivity
   {
     protected override void OnCreate(Bundle bundle)
