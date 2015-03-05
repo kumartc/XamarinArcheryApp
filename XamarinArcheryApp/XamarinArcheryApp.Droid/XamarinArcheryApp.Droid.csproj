@@ -98,6 +98,7 @@
     <Compile Include="CustomRenderers\ImageDisposalRenderer.cs" />
     <Compile Include="CustomRenderers\ImageWithMagnifyRenderer.cs" />
     <Compile Include="CustomRenderers\SvgImageWithMagnifyRenderer.cs" />
+    <Compile Include="CustomRenderers\TargetSvgImageWithMagnifyRenderer.cs" />
     <Compile Include="DataAccess\SQLiteDroid.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -113,7 +114,6 @@
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable\Vegas3SpotTarget.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_action_data_usage.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_action_new.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_action_settings.png" />

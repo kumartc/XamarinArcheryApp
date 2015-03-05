@@ -9,8 +9,7 @@ namespace XamarinArcheryApp.Pages
 {
   class ViewRoundPage : ContentPage
   {
-    private SvgImageWithMagnify targetImage;
-    //private SvgImage targetImage;
+    private TargetSvgImageWithMagnify _targetImage;
 
     public ViewRoundPage()
     {
@@ -21,9 +20,10 @@ namespace XamarinArcheryApp.Pages
       var nameEntry = new Entry();
       nameEntry.SetBinding(Entry.TextProperty, "Name");
 
-      targetImage = new SvgImageWithMagnify
+      _targetImage = new TargetSvgImageWithMagnify
       {
         SvgPath = "XamarinArcheryApp.Images.VegasTargetSvg.svg",
+        ColorMapSvgPath = "XamarinArcheryApp.Images.VegasTargetSvg-ScoreMask.svg",
         SvgAssembly = typeof(App).GetTypeInfo().Assembly,
         HeightRequest = App.ScreenDimensions.Width,
         WidthRequest = App.ScreenDimensions.Width,
@@ -65,7 +65,7 @@ namespace XamarinArcheryApp.Pages
         Children =
         {
           nameLabel, nameEntry,
-          targetImage,
+          _targetImage,
           new StackLayout
           {
             Orientation = StackOrientation.Horizontal,
@@ -81,7 +81,7 @@ namespace XamarinArcheryApp.Pages
 
     protected override void OnDisappearing()
     {
-      targetImage = null;
+      _targetImage = null;
       base.OnDisappearing();
 
       //This shouldn't be necessary with the svg changes (or at all), but keeping in for now as I continue to optimize
