@@ -7,18 +7,18 @@ namespace XamarinArcheryApp.Pages
 {
   public class ManageRoundsPage : BaseToolbarPage
   {
-    ListView listView;
+    readonly ListView _listView;
 
     public ManageRoundsPage()
     {
       Title = "Rounds";
 
-      listView = new ListView
+      _listView = new ListView
       {
         ItemTemplate = new DataTemplate(typeof (RoundViewCell))
       };
 
-      listView.ItemSelected += (sender, args) =>
+      _listView.ItemSelected += (sender, args) =>
       {
         var roundItem = (Round) args.SelectedItem;
         var roundPage = new ViewRoundPage() {BindingContext = roundItem};
@@ -30,7 +30,7 @@ namespace XamarinArcheryApp.Pages
       {
         Children =
         {
-          listView
+          _listView
         },
         VerticalOptions = LayoutOptions.FillAndExpand
       };
@@ -39,7 +39,7 @@ namespace XamarinArcheryApp.Pages
     protected override void OnAppearing()
     {
       base.OnAppearing();
-      listView.ItemsSource = App.Database.GetRounds();
+      _listView.ItemsSource = App.Database.GetRounds();
     }
   }
 }

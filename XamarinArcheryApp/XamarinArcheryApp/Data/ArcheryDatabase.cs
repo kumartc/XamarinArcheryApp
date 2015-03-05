@@ -11,22 +11,22 @@ namespace XamarinArcheryApp.Data
 {
   public class ArcheryDatabase
   {
-    static object _locker = new object();
+    static readonly object _locker = new object();
 
-    private SQLiteConnection database;
+    private readonly SQLiteConnection _database;
 
     public ArcheryDatabase()
     {
-      database = DependencyService.Get<ISQLite>().GetConnection();
+      _database = DependencyService.Get<ISQLite>().GetConnection();
       
-      database.CreateTable<Round>();
+      _database.CreateTable<Round>();
       //database.CreateTable<End>();
       //database.CreateTable<Shot>();
       //database.CreateTable<Arrow>();
-      database.CreateTable<Target>();
+      _database.CreateTable<Target>();
 
       //If Round Table is Empty, Create Sample Data
-      if (!database.Table<Round>().Any())
+      if (!_database.Table<Round>().Any())
       {
         var sample = new Round()
         {
@@ -35,15 +35,15 @@ namespace XamarinArcheryApp.Data
           Ends = new List<End>()
         };
 
-        database.RunInTransaction(() =>
+        _database.RunInTransaction(() =>
         {
-          database.InsertWithChildren(sample, true);
+          _database.InsertWithChildren(sample, true);
           sample.Name = "Test Round 2";
-          database.InsertWithChildren(sample, true);
+          _database.InsertWithChildren(sample, true);
           sample.Name = "Test Round 3";
-          database.InsertWithChildren(sample, true);
+          _database.InsertWithChildren(sample, true);
           sample.Name = "Test Round 4";
-          database.InsertWithChildren(sample, true);
+          _database.InsertWithChildren(sample, true);
         });
       }
     }
@@ -54,7 +54,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Table<Arrow>();
+        return _database.Table<Arrow>();
       }
     }
 
@@ -62,7 +62,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Get<Arrow>(id);
+        return _database.Get<Arrow>(id);
       }
     }
 
@@ -72,12 +72,12 @@ namespace XamarinArcheryApp.Data
       {
         if (arrow.Id != 0)
         {
-          database.Update(arrow);
+          _database.Update(arrow);
           return arrow.Id;
         }
         else
         {
-          return database.Insert(arrow);
+          return _database.Insert(arrow);
         }
       }
     }
@@ -86,7 +86,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Delete<Arrow>(id);
+        return _database.Delete<Arrow>(id);
       }
     }
 
@@ -98,7 +98,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Table<End>();
+        return _database.Table<End>();
       }
     }
 
@@ -106,7 +106,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Get<End>(id);
+        return _database.Get<End>(id);
       }
     }
 
@@ -116,12 +116,12 @@ namespace XamarinArcheryApp.Data
       {
         if (end.Id != 0)
         {
-          database.Update(end);
+          _database.Update(end);
           return end.Id;
         }
         else
         {
-          return database.Insert(end);
+          return _database.Insert(end);
         }
       }
     }
@@ -130,7 +130,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Delete<End>(id);
+        return _database.Delete<End>(id);
       }
     }
 
@@ -142,7 +142,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Table<Round>();
+        return _database.Table<Round>();
       }
     }
 
@@ -150,7 +150,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Get<Round>(id);
+        return _database.Get<Round>(id);
       }
     }
 
@@ -160,12 +160,12 @@ namespace XamarinArcheryApp.Data
       {
         if (round.Id != 0)
         {
-          database.Update(round);
+          _database.Update(round);
           return round.Id;
         }
         else
         {
-          return database.Insert(round);
+          return _database.Insert(round);
         }
       }
     }
@@ -174,7 +174,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Delete<Round>(id);
+        return _database.Delete<Round>(id);
       }
     }
 
@@ -186,7 +186,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Table<Target>();
+        return _database.Table<Target>();
       }
     }
 
@@ -194,7 +194,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Get<Target>(id);
+        return _database.Get<Target>(id);
       }
     }
 
@@ -204,12 +204,12 @@ namespace XamarinArcheryApp.Data
       {
         if (target.Id != 0)
         {
-          database.Update(target);
+          _database.Update(target);
           return target.Id;
         }
         else
         {
-          return database.Insert(target);
+          return _database.Insert(target);
         }
       }
     }
@@ -218,7 +218,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Delete<Target>(id);
+        return _database.Delete<Target>(id);
       }
     }
 
@@ -230,7 +230,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Table<Shot>();
+        return _database.Table<Shot>();
       }
     }
 
@@ -238,7 +238,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Get<Shot>(id);
+        return _database.Get<Shot>(id);
       }
     }
 
@@ -248,12 +248,12 @@ namespace XamarinArcheryApp.Data
       {
         if (shot.Id != 0)
         {
-          database.Update(shot);
+          _database.Update(shot);
           return shot.Id;
         }
         else
         {
-          return database.Insert(shot);
+          return _database.Insert(shot);
         }
       }
     }
@@ -262,7 +262,7 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return database.Delete<Shot>(id);
+        return _database.Delete<Shot>(id);
       }
     }
 

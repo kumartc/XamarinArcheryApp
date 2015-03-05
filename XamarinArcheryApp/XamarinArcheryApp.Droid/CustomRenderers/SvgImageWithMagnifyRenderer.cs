@@ -32,8 +32,7 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
       {
         try
         {
-          //await UpdateBitmapFromSvgAsync();
-          UpdateBitmapFromSvg();
+          LoadBitmapFromSvg();
         }
         catch (Exception ex)
         {
@@ -47,8 +46,7 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
 			return new SizeRequest (new Size (_formsControl.WidthRequest, _formsControl.WidthRequest));
 		}
 
-		//private async Task UpdateBitmapFromSvgAsync ()
-    private void UpdateBitmapFromSvg ()
+    private void LoadBitmapFromSvg()
 		{
 			Task.Run (async() => {
 				var width = (int)_formsControl.WidthRequest <= 0 ? 100 : (int)_formsControl.WidthRequest;

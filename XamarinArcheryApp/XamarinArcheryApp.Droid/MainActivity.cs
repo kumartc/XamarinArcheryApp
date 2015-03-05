@@ -5,6 +5,7 @@ using Android.OS;
 using SVG.Forms.Plugin.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using XamarinArcheryApp.Droid.CustomRenderers;
 
 namespace XamarinArcheryApp.Droid
 {
@@ -16,7 +17,6 @@ namespace XamarinArcheryApp.Droid
       base.OnCreate(bundle);
 
       Forms.Init(this, bundle);
-      SvgImageRenderer.Init();
 
       //Hackish way of inspecting the VM Exceptions during debug
       AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
