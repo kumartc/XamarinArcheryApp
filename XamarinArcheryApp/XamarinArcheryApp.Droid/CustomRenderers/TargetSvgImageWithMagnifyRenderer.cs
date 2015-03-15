@@ -48,8 +48,8 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
       {
         using (var paint = new Paint())
         {
-          paint.Color = Android.Graphics.Color.Black,
-          paint.TextSize = 50F,
+          paint.Color = Android.Graphics.Color.Black;
+          paint.TextSize = 50F;
           paint.FakeBoldText = true;
           canvas.DrawText(_score.ToString(), 15, 55, paint);
         }
