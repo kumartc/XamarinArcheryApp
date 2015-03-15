@@ -14,6 +14,6 @@ namespace XamarinArcheryApp.Enums
     Eight = 8,
     Nine = 9,
     Ten = 10,
-    X = 10
+    X = 11
   }
 }
