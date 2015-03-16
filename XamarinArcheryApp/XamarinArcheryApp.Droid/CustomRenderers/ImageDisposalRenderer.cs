@@ -26,7 +26,7 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
           _page = GetParentPage(e.NewElement);
 
           //If Tabbed, set the Tabbed Disappearing Handler
-          if (_page.Parent is TabbedPage)
+          if (_page.Parent is TabbedPage || _page.Parent is CarouselPage)
           {
             _page.Disappearing += PageContainedInTabbedPageDisapearing;
             return;

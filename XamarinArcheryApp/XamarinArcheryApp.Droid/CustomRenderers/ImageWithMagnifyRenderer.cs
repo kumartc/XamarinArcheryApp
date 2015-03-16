@@ -154,7 +154,10 @@ namespace XamarinArcheryApp.Droid.CustomRenderers
         if (_mPaint != null)
         _mPaint.Dispose();
         if (_handler != null)
-        _handler.Dispose();
+        {
+          _handler.RemoveCallbacks(_onLongPressRunnable);
+          _handler.Dispose();
+        }
         if (_onLongPressRunnable != null)
         _onLongPressRunnable.Dispose();
       }

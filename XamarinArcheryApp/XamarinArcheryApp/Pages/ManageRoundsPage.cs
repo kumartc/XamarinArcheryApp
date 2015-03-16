@@ -20,8 +20,9 @@ namespace XamarinArcheryApp.Pages
 
       _listView.ItemSelected += (sender, args) =>
       {
-        var roundItem = (Round) args.SelectedItem;
-        var roundPage = new ViewRoundPage() {BindingContext = roundItem};
+        var round = (Round)args.SelectedItem;
+
+        var roundPage = new ViewRoundCarouselPage(round.Id);
 
         Navigation.PushAsync(roundPage);
       };

@@ -20,9 +20,9 @@ namespace XamarinArcheryApp.Data
       _database = DependencyService.Get<ISQLite>().GetConnection();
       
       _database.CreateTable<Round>();
-      //database.CreateTable<End>();
-      //database.CreateTable<Shot>();
-      //database.CreateTable<Arrow>();
+      _database.CreateTable<End>();
+      //_database.CreateTable<Shot>();
+      //_database.CreateTable<Arrow>();
       _database.CreateTable<Target>();
 
       //If Round Table is Empty, Create Sample Data
@@ -32,7 +32,19 @@ namespace XamarinArcheryApp.Data
         {
           Name = "Test Round 1",
           Target = new Target { Name = "Vegas 3 Spot Target" },
-          Ends = new List<End>()
+          Ends = new List<End>
+          {
+            new End { EndNo = 1 },
+            new End { EndNo = 2 },
+            new End { EndNo = 3 },
+            new End { EndNo = 4 },
+            new End { EndNo = 5 },
+            new End { EndNo = 6 },
+            new End { EndNo = 7 },
+            new End { EndNo = 8 },
+            new End { EndNo = 9 },
+            new End { EndNo = 10 },
+          }
         };
 
         _database.RunInTransaction(() =>
@@ -142,15 +154,15 @@ namespace XamarinArcheryApp.Data
     {
       lock (_locker)
       {
-        return _database.Table<Round>();
+        return _database.GetAllWithChildren<Round>();
       }
     }
-
+    
     public Round GetRound(int id)
     {
       lock (_locker)
       {
-        return _database.Get<Round>(id);
+        return _database.GetWithChildren<Round>(id);
       }
     }
 

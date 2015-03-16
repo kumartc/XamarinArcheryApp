@@ -7,18 +7,18 @@ using XamarinArcheryApp.Model;
 
 namespace XamarinArcheryApp.Pages
 {
-  class ViewRoundPage : ContentPage
+  class ViewEndPage : ContentPage
   {
     private TargetSvgImageWithMagnify _targetImage;
 
-    public ViewRoundPage()
+    public ViewEndPage()
     {
-      this.SetBinding(TitleProperty, "Name");
+      this.SetBinding(TitleProperty, "EndNo");
 
-      var nameLabel = new Label {Text = "Name: "};
+      var nameLabel = new Label {Text = "End No: "};
       
-      var nameEntry = new Entry();
-      nameEntry.SetBinding(Entry.TextProperty, "Name");
+      var nameValue = new Label();
+      nameValue.SetBinding(Label.TextProperty, "EndNo");
 
       _targetImage = new TargetSvgImageWithMagnify
       {
@@ -64,7 +64,15 @@ namespace XamarinArcheryApp.Pages
         Padding = new Thickness(0),
         Children =
         {
-          nameLabel, nameEntry,
+          new StackLayout
+          {
+            Orientation = StackOrientation.Horizontal,
+            HorizontalOptions = LayoutOptions.Start,
+            Children =
+            {
+              nameLabel, nameValue
+            }
+          },
           _targetImage,
           new StackLayout
           {

@@ -31,8 +31,7 @@ namespace XamarinArcheryApp.Model
     [ForeignKey(typeof(Target))]
     public int TargetId { get; set; }
    
-    //[OneToMany(CascadeOperations = CascadeOperation.All)]
-    [Ignore]
+    [OneToMany(CascadeOperations = CascadeOperation.All)]
     public List<End> Ends { get; set; }
 
     [Ignore]

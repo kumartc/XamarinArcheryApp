@@ -20,7 +20,8 @@ namespace XamarinArcheryApp.Model
     [ForeignKey(typeof(Round))]
     public int RoundId { get; set; }
 
-    [OneToMany(CascadeOperations = CascadeOperation.All)]
+    [Ignore]
+    //[OneToMany(CascadeOperations = CascadeOperation.All)]
     public List<Shot> Shots { get; set; }
 
     [Ignore]

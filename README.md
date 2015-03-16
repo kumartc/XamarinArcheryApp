@@ -14,9 +14,9 @@ Currently only targetting Droid
 
 ~~Fix image memory issues~~
 
-Implement Color Map for Scoring
+~~Implement Color Map for Scoring~~
 
-Carousel for Ends
+~~Carousel for Ends~~
 
 Add Ends/Shots/Arrows to Data Model
 
