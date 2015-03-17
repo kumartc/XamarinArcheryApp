@@ -172,12 +172,13 @@ namespace XamarinArcheryApp.Data
       {
         if (round.Id != 0)
         {
-          _database.Update(round);
+          _database.UpdateWithChildren(round);
           return round.Id;
         }
         else
         {
-          return _database.Insert(round);
+          _database.InsertOrReplaceWithChildren(round);
+          return round.Id;
         }
       }
     }

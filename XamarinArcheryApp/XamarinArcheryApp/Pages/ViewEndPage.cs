@@ -39,7 +39,7 @@ namespace XamarinArcheryApp.Pages
       };
       deleteButton.Clicked += (sender, e) =>
       {
-        var roundItem = (Round)BindingContext;
+        var roundItem = ((End)BindingContext).Round;
         App.Database.DeleteRound(roundItem.Id);
         this.Navigation.PopAsync();
       };
@@ -51,7 +51,7 @@ namespace XamarinArcheryApp.Pages
       };
       saveButton.Clicked += (sender, e) =>
       {
-        var roundItem = (Round)BindingContext;
+        var roundItem = ((End)BindingContext).Round;
         App.Database.SaveRound(roundItem);
         this.Navigation.PopAsync();
       };
